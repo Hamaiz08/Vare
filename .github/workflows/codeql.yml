@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: '0 0 * * 0' # Weekly scan
+    - cron: '0 0 * * 0' # weekly
 
 jobs:
   analyze:
@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        language: [cpp]  # Set to C++
+        language: [cpp]
 
     steps:
       - name: Checkout repository
@@ -30,13 +30,10 @@ jobs:
         with:
           languages: ${{ matrix.language }}
 
-      - name: Build project (CMake example)
+      # 🔧 Replace this with your actual build commands!
+      - name: Build the project manually
         run: |
-          mkdir build
-          cd build
-          cmake ..
-          make -j$(nproc)
+          g++ -o main *.cpp
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
-
